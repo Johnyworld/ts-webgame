@@ -1,0 +1,11 @@
+{
+  "name": "ts-webgame",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Johnyworld/ts-webgame",
+  "author": "Johny Kim",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^3.7.5"
+  }
+}
