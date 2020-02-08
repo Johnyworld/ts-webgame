@@ -1,24 +1,6 @@
 "use strict";
-var Hero = /** @class */ (function () {
-    function Hero(mine) {
-        this.mine = mine;
-        this.att = Math.ceil(Math.random() * 2);
-        this.hp = Math.ceil(Math.random() * 5) + 25;
-        this.hero = true;
-        this.field = true;
-    }
-    return Hero;
-}());
-var Pawn = /** @class */ (function () {
-    function Pawn(mine) {
-        this.field = false;
-        this.mine = mine;
-        this.att = Math.ceil(Math.random() * 5);
-        this.hp = Math.ceil(Math.random() * 5);
-        this.cost = Math.floor((this.att + this.hp) / 2);
-    }
-    return Pawn;
-}());
+exports.__esModule = true;
+var types_1 = require("./types");
 var isPawn = function (data) {
     if (data.cost)
         return true;
@@ -68,14 +50,14 @@ var createDeck = function (_a) {
     var mine = _a.mine, count = _a.count;
     var player = mine ? me : opponent;
     for (var i = 0; i < count; i++) {
-        player.deckData.push(new Pawn(mine));
+        player.deckData.push(new types_1.Pawn(mine));
     }
     redrawDeck(player);
 };
 var createHero = function (_a) {
     var mine = _a.mine;
     var player = mine ? me : opponent;
-    player.heroData = new Hero(mine);
+    player.heroData = new types_1.Hero(mine);
     connectCardDom({ data: player.heroData, DOM: player.hero, hero: true });
 };
 var connectCardDom = function (_a) {
