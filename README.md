@@ -51,7 +51,6 @@
 - `namespace` 로 정의 한 애들은 이와 같이 불러올 수 있다. ex) `React.Component`
 - `export = React` 이렇게 export 된 애들은 common.js 방식으로 export 된 것이기 때문에 `import * as React from 'react'` 이 방법으로 import 해야 한다.
 - index.d.ts 를 참고하기 좋은 라이브러리들 : redux, axios, react, jquery
-- d.ts 는 남의 모듈을 위해 쓰고 내꺼 쓸땐 ts 쓰면 됨.
 
 #### Making Custom types for packages
 
@@ -73,28 +72,95 @@ declare module 'the-extention' {
 
 window 객체에 method 를 추가하여 사용하는 것은 기존 자바스크립트에서는 크게 문제가 없다. 하지만 typescript 에서는 오류가 발생한다. 하지만 사용할 수 없는 것은 아니다.
 
-1. ./types/index.d.ts (파일명은 중요하지 않음) 에 전역객체로 선언한다. declare global { ... }
+1. ./types/index.d.ts (파일명은 중요하지 않음) 에 전역객체로 선언한다. declare global
 2. export interface Window { hello: string } 이런식으로 추가해준다.
 3. export interface Error { code?: any } 에러는 이런 식으로.
-4. Augmentation ... 오류가 발생할때는 꼼수로 최상단에 export {} 를 넣어주어 external module 로 만들어 주면 에러가 나지 않는다.
+4. Augmentation ... 오류가 발생할때는 꼼수로 최상단에 export {} 를 넣어주면 에러가 나지 않는다.
+
+## 6강
+
+#### Intersection
+
+- 아래 const c 와 같이 여러개의 interface, type 등을 포함할 경우, 그 객체는 타입 모두를 만족해야 한다.
+- 
 
 ```
-export {}
-declare global {
-    export interface Window {
-        hello: string
-    }
+interface A { hello: true }
+interface B { bye: true }
+type C { hi: false }
 
-    export interface Error {
-        code?: any
-    }
+const a: A { hello: true }
+const b: B { bye: true }
+const c: A & B & C { hello: true, bye: true, hi: false }
+```
+
+### Utility Types
+
+#### Partial
+
+선언된 interface 를 부분적으로 사용 할 수 있다.
+
+```
+interface A {
+    a: true
+    b: string
+    c: 'hello' 
+}
+
+const a: Partial<A> {
+    a: true,
+    c: 'hello
 }
 ```
 
-#### Modifying types for extentions have wrong types
+#### Pick, Omit
 
-누군가 만들어 놓은 익스텐션을 사용 할 때, types 가 틀린 경우가 가끔 있다. 그럴 경우에는 해당하는 @types(definitly typed) 를 그대로 복사하여 local 에서 수정하여 사용한다. 해당 익스텐션의 @types는 삭제한다.
+선언된 interface 를 원하는 것만 사용하거나, 지정된 것을 제외한 요소들만 사용하거나 할 수 있다.
 
+```
+interface A {
+    a: number
+    b: string
+    c: string
+}
 
+const a:Pick<A, 'a' | 'c'> {
+    a: 1,
+    c: 'hello'
+}
+```
 
+#### Readonly
+
+같은 interface의 내용인데 readonly로 사용할 경우와 아닐 경우는 아래와 같이 사용한다. interface에 readonly 로 설정되어있지 않아도 Readonly로 타입을 설정하면, 해당 interface 를 readonly 로 사용할 수 있다.
+
+- A는 무조건 readonly로 밖에 사용할 수 없지만 B를 a 처럼 사용하면 A 와 같은 결과를 만들어준다.
+
+```
+interface A {
+    readonly a: number
+    readonly b: string
+    readonly c: string
+}
+
+interface B {
+    a: number
+    b: string
+    c: string
+}
+
+const a: Readonly<B> {
+    a: 1,
+    b: 'hello',
+    c: 'world'
+}
+```
+
+### Decorator
+
+- 데코레이터 위치에 따라 이름이 다름.
+- 데코레이터는 함수로 사용함.
+- class 에 중복되는 값들을 꾸며주는 역할을 함.
+- extends 로 대신할 수 있음.
+- 데코레이터는 TS 아닌 JS 임.
 
