@@ -163,4 +163,12 @@ const a: Readonly<B> {
 - class 에 중복되는 값들을 꾸며주는 역할을 함.
 - extends 로 대신할 수 있음.
 - 데코레이터는 TS 아닌 JS 임.
+- Typescriptlang.org - Document - Handbook - Decorator 에서 더 많은 정보 참고
+- Zerocho 블로그에서 Reflex API, Proxy 읽어보기
 
+## Memo
+
+- Typescript를 사용한다고 해서 성능면에서는 향상 되지 않음.
+- 그렇다고 퍼포먼스가 떨어진다고 볼 수 없음. 빌드하는 시간은 걸리더라도 실제 실행되는 코드는 무관함.
+- 하지만 개발자의 어이없는 실수를 방지할 수 있기 때문에 에러를 현저히 줄일 수 있다.
+- JS는 실행해보기 전에는 에러 유무를 알 수 없지만, TS는 알 수 있다.
