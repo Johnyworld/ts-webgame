@@ -117,7 +117,7 @@ const a: Partial<A> {
 
 선언된 interface 를 원하는 것만 사용하거나, 지정된 것을 제외한 요소들만 사용하거나 할 수 있다.
 
-```
+```jsx
 interface A {
     a: number
     b: string
