@@ -61,7 +61,7 @@
 3. types 폴더 안에 `<EXTENTION-NAME.d.ts>`파일을 만든다.
 4. 아래 코드와 같이 export 한다. export 하는 방법은 다른 익스텐션들을 참고하여 작성한다.
    
-```
+```jsx
 declare module 'the-extention' {
     const theExtention: boolean;
     export default theExtention;
@@ -84,7 +84,7 @@ window 객체에 method 를 추가하여 사용하는 것은 기존 자바스크
 - 아래 const c 와 같이 여러개의 interface, type 등을 포함할 경우, 그 객체는 타입 모두를 만족해야 한다.
 - 
 
-```
+```jsx
 interface A { hello: true }
 interface B { bye: true }
 type C { hi: false }
@@ -100,7 +100,7 @@ const c: A & B & C { hello: true, bye: true, hi: false }
 
 선언된 interface 를 부분적으로 사용 할 수 있다.
 
-```
+```jsx
 interface A {
     a: true
     b: string
@@ -136,7 +136,7 @@ const a:Pick<A, 'a' | 'c'> {
 
 - A는 무조건 readonly로 밖에 사용할 수 없지만 B를 a 처럼 사용하면 A 와 같은 결과를 만들어준다.
 
-```
+```jsx
 interface A {
     readonly a: number
     readonly b: string
